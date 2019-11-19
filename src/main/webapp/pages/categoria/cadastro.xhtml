@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Categoria
+                    <small>cadastro de categorias</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Cadastro Categoria</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Cadastro</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+
+                                    <div class="form-body">
+                                        <div class="form-group form-md-line-input form-md-floating-label has-error">
+                                            <h:inputText class="form-control" id="form_control_1" value="#{categoriaController.instance.nmCategoria}"/>
+                                            	<label for="form_control_1">Nome</label>
+                                             	<span class="help-block">Campo Obrigatório</span>	
+                                       </div>
+                                       <!-- 
+                                        <div class="form-group form-md-line-input form-md-floating-label">
+											<h:selectOneMenu value="#{categoriaController.instance.idCategoriaPai}"  class="form-control" id="categoriaPai" >
+												<f:selectItem itemLabel="" itemValue=""/>
+												<f:selectItems value="#{categoriaController.categoriaListPai}" var="cat" itemValue="#{cat.idCategoria}" itemLabel="#{cat.nmCategoria}" />
+											</h:selectOneMenu>
+												<label for="categoriaPai">Categoria Pai</label>
+                                        </div>
+                                         -->
+                                         <p:tree value="#{categoriaController.root}" var="node" dynamic="true">
+									        <p:treeNode>
+									            <h:outputText value="#{node.}" />
+									        </p:treeNode>
+									    </p:tree>
+                                         
+									</div>
+									
+
+                                    <div class="form-actions noborder">
+                       					<h:commandLink action="#{categoriaController.salvar()}" value="Salvar" class="btn blue" id="btnCadastroCategoria" onclick="showStatus();"/>
+                                        <button type="button" class="btn default">Cancelar</button>
+                                    </div>
+                                
+                            </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+	</ui:define>
+</ui:composition>

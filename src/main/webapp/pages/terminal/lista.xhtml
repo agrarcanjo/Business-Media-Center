@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Terminais
+                    <small>listagem de Terminais</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Listagem Terminais</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Listagem</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+							 <h:form id="form">
+							 
+								 <a href="cadastro.xhtml" class="btn green"> Inserir
+	                             	<i class="fa fa-plus"></i>
+	                             </a>
+                     	 
+									    <p:dataTable id="terminalDT" var="terminal" value="#{terminalController.terminais}" widgetVar="terminalTable" paginator="true" rows="10"
+					                 	emptyMessage="Nenhum encontrado" rowsPerPageTemplate="5,10,15"  filteredValue="#{terminalController.filteredTerminais}"
+					                 	paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"  >
+									       
+									       <!-- 
+									        <f:facet name="header">
+									            <p:outputPanel >
+										            <h:outputText value="Procurar: " />
+										            <p:inputText id="terminalFilter" onkeyup="PF('terminalTable').filter();" style="width:150px" placeholder="Inserir filtro"/>
+									        	</p:outputPanel>
+									        </f:facet>
+									        -->								        
+									        
+									        <p:column headerText="Nome" width="25%" filterBy="#{terminal.nmTerminal}" filterMatchMode="contains">
+									            <h:outputText value="#{terminal.nmTerminal}" />
+									        </p:column>
+									        <p:column headerText="Criação" width="10%">
+									            <h:outputText value="#{terminal.dtCriacao}">
+									            	<f:convertDateTime pattern="dd/MM/YYYY"/>
+									            </h:outputText>									            
+									        </p:column>
+									        <p:column headerText="Descrição do Terminal" width="20%">
+									            <h:outputText value="#{terminal.dsTerminal}" />
+									        </p:column>
+									        <p:column headerText="Downloads" width="20%">
+									            <h:outputText value="0" />
+									        </p:column>
+									        <p:column style="width:32px;text-align: center" width="15%">									        
+									            <p:commandButton update="terminalDT " oncomplete="PF('terminalDialog').show();hideStatus();" icon="ui-icon-search" title="Programação do terminal"
+									             action="#{terminalController.pegaProgramacaoDoTerminal(terminal)}" process="@parent">
+ 									                <f:setPropertyActionListener value="#{terminal}" target="#{terminalController.instance}" />
+									            </p:commandButton>
+<!-- 									             onstart="showStatus()" oncomplete="hideStatus()"  -->
+									            <p:commandButton id="programar" title="Programação" rendered="true" action="#{terminalController.redirectProgramacao(terminal)}"
+									           icon="ui-icon-document" process="@parent">
+									            	<f:setPropertyActionListener value="#{terminalController.id}" target="#{programacaoController.id}"></f:setPropertyActionListener>
+									            </p:commandButton>
+									            
+									            <!--									           									           
+									            <a class="btn btn-icon-only default" data-toggle="modal" href="#static"  >
+									            	<i class="fa fa-edit"> </i>
+									           	</a>								             
+									            <a class="btn btn-icon-only red" data-toggle="modal"  href="#confimacaoExcluir" >
+									            	<i class="fa fa-times"></i>
+									            </a>
+									             -->
+									        </p:column>
+									    </p:dataTable>
+								    
+									<p:dialog header="Programação do terminal" widgetVar="terminalDialog" id="terminalDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false" height="80%" width="50%" >									   
+									    	<p:dataTable id="programacoesDT" var="programacao" value="#{terminalController.listTerminalProgramacao}" 
+									    	 emptyMessage="Nenhum resultado encontrado" >								 				
+									                <h:outputText value="Terminal" />
+									                <h:outputText value="#{programacao.terminal.nmTerminal}" />
+									 
+									                <h:outputText value="Year" />
+									                <h:outputText value="" />
+									        </p:dataTable>
+								   </p:dialog>
+								    
+								    <!--  
+								    <div class="modal fade" id="confimacaoExcluir" tabindex="-1" role="basic" aria-hidden="true">
+	                                            <div class="modal-dialog">
+	                                              <div class="modal-content">
+	                                                 <div class="modal-header">
+	                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	                                                    <h4 class="modal-title">Excluir Mídia</h4>
+	                                                  </div>
+	                                                  <div class="modal-body"> Deseja excluir permanentemente esta mídia? </div>
+	                                                  <div class="modal-footer">
+	                                                    <button type="button" class="btn dark btn-outline" data-dismiss="modal">Fechar</button>
+	                                                    <h:commandLink action="#{midiaController.delete()}" value="Excluir" class="btn green" id="btnExcluirMidia" onclick="showStatus();"/>
+	                                                  </div>
+	                                              </div>
+	                                	        </div>
+	                                </div>
+                                        
+                                   <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                               <div class="modal-header">
+                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                               <h4 class="modal-title">Confirmation</h4>
+                                               </div>
+                                            <div class="modal-body">
+                                               <p> Would you like to continue with some arbitrary task? </p>
+                                            </div>
+                                                <div class="modal-footer">
+                                                	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                                         			<button type="button" data-dismiss="modal" class="btn green">Continue Task</button>
+                                         		</div>
+                                         	</div>
+                                         </div>
+                                    </div>
+                                    -->
+ 
+                            
+                            </h:form>
+							
+                            </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+	</ui:define>
+</ui:composition>

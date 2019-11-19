@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Mídias
+                    <small>Cadastro de Mídias</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Cadastro de Mídias</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Cadastro</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                            	
+                            	<!-- BEGIN SAMPLE FORM UPDATE -->
+                            	
+                            	
+                           	<div class="row">
+                            <div class="col-md-12">
+	                            <h:form enctype="multipart/form-data">
+								    <p:fileUpload fileUploadListener="#{midiaController.doUpload}" mode="advanced" dragDropSupport="true"
+								                  uploadLabel="Upload" cancelLabel="Cancelar" invalidSizeMessage="Tamanho superior ao limite de 200Mb"
+								                  invalidFileMessage="Extensão do arquivo inválido" previewWidth="80"
+								                  label="Enviar"  fileLimitMessage="Limite máximo de 10 arquivos para upload "
+								                  multiple="true" sizeLimit="200000000" fileLimit="10" allowTypes="/(\.|\/)(avi|mp4|mov)$/" />	
+								</h:form>                           
+                            
+                            <div class="form-actions noborder">
+                       					<h:commandLink action="#{midiaController.salvar()}" value="Salvar" disabled="true" class="btn blue" id="btnCadastroMidia" onclick="showStatus();" />
+                                        <button type="button" class="btn default" onclick="window.location.href='lista.xhtml';" >Cancelar</button>
+                            </div>
+                            
+                            
+                            </div>
+                        	</div>
+                        </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Playlist
+                    <small>cadastro de Playlist</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Cadastro de Playlist</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Cadastro</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                            
+                             <div class="form-group form-md-line-input form-md-floating-label has-error">
+                                 <h:inputText class="form-control" id="form_control_1" value="#{playlistController.instance.nmPlaylist}"/>
+                                 <label for="form_control_1">Nome da Playlist</label>
+                                 <span class="help-block">Campo Obrigatório</span>	
+                            </div>
+                             
+                             <p:pickList id="PojoPickList" value="#{playlistController.dualListMidias}" var="midia" effect="bounce" itemValue="#{midia}" required="false"
+                             			requiredMessage="Pelo menos 1 funcionário deve ser selecionado" 
+						                itemLabel="#{midia.nmMidia}" showSourceControls="false" showTargetControls="true" showCheckbox="true" responsive="true"
+						                showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains" converter="primeFacesPickListConverter">
+						 
+						        <f:facet name="sourceCaption">Midias Disponíveis</f:facet>
+						        <f:facet name="targetCaption">Nova Playlist</f:facet>	
+						        					 
+						       	<p:ajax event="transfer" listener="#{playlistController.onTransfer}" update="PojoPickList"></p:ajax>			       
+						    
+						    </p:pickList>						    
+
+                            <div class="form-actions noborder">
+                       			<h:commandLink action ="#{playlistController.salvar()}" value="Salvar" class="btn blue" id="btnCadastroCategoria" onclick="showStatus();" />
+                                <button type="button" class="btn default" onclick="window.location.href='lista.xhtml'" >Cancelar</button>
+                            </div>						    
+						    
+                            </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+	</ui:define>
+</ui:composition>

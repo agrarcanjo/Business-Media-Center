@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Mídias
+                    <small>Consultar Mídias</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Consultar Mídias</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Listagem</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+							 <h:form id="form">
+							 
+								<a href="cadastro.xhtml" class="btn btn-lg green"> Inserir
+		                             	<i class="fa fa-plus"></i>
+		                        </a>
+		       
+	                     	    <div class="form-group form-md-line-input form-md-floating-label">
+	                     	    
+	                     	    <!--
+								<h:selectOneMenu value="#{midiaController.}"  class="form-control" id="terminalUf" >
+									<f:selectItem itemLabel="" itemValue=""/>
+									  <f:selectItems value="" var="Uf" itemValue="" itemLabel="" 
+								</h:selectOneMenu>
+								 
+								<label for="terminalUf">Estado</label>
+	                                        
+	                                        />-->
+	                            </div>
+		                             
+	                             
+                     	  	</h:form>
+	                             
+                     	    </div>         	    
+                     	    
+                     	  </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+	</ui:define>
+</ui:composition>

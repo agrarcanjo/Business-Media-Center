@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> RSS
+                    <small>Cadastro de RSS</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Cadastro de RSS</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Cadastro </span>
+                                </div>
+                            </div>
+                            
+                            <div class="portlet-body form">
+                            	<div class="form-actions noborder">  
+                            	<div class="form-group form-md-line-input form-md-floating-label has-error">
+                                 	<h:inputText class="form-control" id="form_control_1" value="#{midiaController.instance.nmMidia}"/>
+                                    	<label for="form_control_1">Nome para o RSS</label>
+                                        <span class="help-block">Campo Obrigatório</span>	
+                                 </div>
+                                                          		
+                           		<div class="form-group form-md-line-input form-md-floating-label has-error">
+                                 	<h:inputText class="form-control" id="form_control_2" value="#{midiaController.instance.dsCaminho}"/>
+                                    	<label for="form_control_2">URL do RSS</label>
+                                        <span class="help-block">Campo Obrigatório</span>	
+                                 </div>
+                                 
+                                 <p:scrollPanel id="scrollRSS" style="width:700px;height:270px" mode="native">	                                 
+	                                 <p:feedReader id="news" value="#{midiaController.instance.dsCaminho}" var="feed" size="10"> 
+										<h:outputText value="#{feed.title}" style="font-weight: bold"/> 
+										<br /> 
+										<h:outputText value="#{feed.description.value}" escape="false"/> 
+										<br />
+										<h:outputText value="#{feed.link}" escape="false"/>									 
+										<p:separator /> 
+									</p:feedReader>    
+								</p:scrollPanel>   	                            
+
+								<br></br>
+								
+								<p:commandButton value="Testar" update="scrollRSS" action="#{midiaController.atualizaRSS()}"/>
+								
+								<div class="form-actions noborder">
+									<h:commandLink action="#{midiaController.salvarRSS()}" value="Salvar" class="btn blue" id="btnCadastroRSS" />
+	                                <button type="button" class="btn default" onclick="window.location.href='lista.xhtml';" >Cancelar</button>                          
+                       			</div>  
+                                </div>
+                            </div>
+							
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Categoria
+                    <small>listagem de categorias</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Listagem Categoria</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Listagem</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+
+                       			 <a href="cadastro.xhtml" class="btn green"> Inserir
+	                             	<i class="fa fa-plus"></i>
+	                             </a>
+			
+							    <p:treeTable value="#{categoriaController.root}" var="categoria">							    	
+							        <f:facet name="header">
+							            Lista de Categorias
+							        </f:facet>
+							        <p:column headerText="Nome" >
+							            <h:outputText value="#{categoria}" />
+							        </p:column>
+							       	<p:column headerText="Midias vinculadas" width="10%">
+							            <h:outputText value="0" />
+							        </p:column>
+							        <p:column style="width:32px;text-align: center" width="5%">
+							            <p:commandLink update="" oncomplete="PF('categoriaDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search">
+							                <f:setPropertyActionListener value="#{categoria}" target="#{categoriaController.categoria}" />
+							            </p:commandLink>
+							        </p:column>
+							    </p:treeTable>
+							    
+							        
+								<p:dialog id="dialog" header="Visualizar" showEffect="fade" widgetVar="categoriaDialog" modal="true" resizable="false" draggable="false">
+								        <p:outputPanel id="categoriaPanel" >
+								            <p:panelGrid  columns="2"  rendered="#{not empty categoriaController.categoria}">
+								                <h:outputLabel for="name" value="Name: " />
+								                <h:outputText id="name" value="#{categoriaController.categoria.nmCategoria}" style="font-weight:bold" />
+								            </p:panelGrid>
+								        </p:outputPanel>
+								</p:dialog>
+							    
+                            </div>
+	    	    
+							
+                        </div>
+                        
+
+                        
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+	</ui:define>
+</ui:composition>

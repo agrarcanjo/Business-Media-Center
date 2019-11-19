@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+  		        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Dashboard
+                    <small>Informações</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="../dashboard/index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+  		
+  				<div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-green-sharp">
+                                            <span data-counter="counterup" data-value="#{estatisticaController.totalCategoria}">#{estatisticaController.totalCategoria}</span>
+                                        </h3>
+                                        <small>Total de Categoria</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-pin"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-red-haze">
+                                            <span data-counter="counterup" data-value="#{estatisticaController.totalMidia}">#{estatisticaController.totalMidia}</span>
+                                        </h3>
+                                        <small>Total de Midias</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-social-youtube"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-blue-sharp">
+                                            <span data-counter="counterup" data-value="#{estatisticaController.totalPlaylist}">#{estatisticaController.totalPlaylist}</span>
+                                        </h3>
+                                        <small>Total de Playlist</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-playlist"></i>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-purple-soft">
+                                            <span data-counter="counterup" data-value="#{estatisticaController.totalUsuario}">#{estatisticaController.totalUsuario}</span>
+                                        </h3>
+                                        <small>Total de Usuários</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>		
+   				<div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-green-sharp">
+                                            <span data-counter="counterup" data-value="#{estatisticaController.totalProgramacao}">#{estatisticaController.totalProgramacao}</span>
+                                        </h3>
+                                        <small>Total de Programação</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-docs"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-red-haze">
+                                            <span data-counter="counterup" data-value="#{estatisticaController.totalTerminal}">#{estatisticaController.totalTerminal}</span>
+                                        </h3>
+                                        <small>Total de Terminais</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-screen-desktop"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                            <div class="dashboard-stat2 ">
+                                <div class="display">
+                                    <div class="number">
+                                        <h3 class="font-blue-sharp">
+                                            <span data-counter="counterup" data-value="#{estatisticaController.totalUsuarioTransacao}">#{estatisticaController.totalUsuarioTransacao}</span>
+                                        </h3>
+                                        <small>Total de Permissões</small>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="icon-shield"></i>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>		
+  		
+    </ui:define>
+</ui:composition>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Configurações
+                    <small>cadastro de Configurações</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Cadastro de Configurações</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Cadastro</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+
+                                    <div class="form-body">                                    	
+                                
+                                     	<div class="form-group form-md-line-input form-md-floating-label has-error">
+                                            <h:inputText class="form-control" id="form_control_2" value="#{configuracaoController.resolucao.psWidth}"/>
+                                            	<label for="form_control_2">Largura do componente</label>
+                                             	<span class="help-block">Campo Obrigatório</span>
+                                     	</div>
+                                     	
+                                        <div class="form-group form-md-line-input form-md-floating-label has-error">
+                                            <h:inputText class="form-control" id="form_control_1" value="#{configuracaoController.resolucao.psHeight}"/>
+                                            	<label for="form_control_1">Altura do componente</label>
+                                             	<span class="help-block">Campo Obrigatório</span>	
+                                     	</div>
+                                     	
+                                     	<div class="form-group form-md-line-input form-md-floating-label has-error">
+                                            <h:inputText class="form-control" id="form_control_3" value="#{configuracaoController.resolucao.psX}"/>
+                                            	<label for="form_control_3">Posição de largura</label>
+                                             	<span class="help-block">Campo Obrigatório</span>
+                                     	</div>
+                                     	
+                                     	<div class="form-group form-md-line-input form-md-floating-label has-error">
+                                            <h:inputText class="form-control" id="form_control_4" value="#{configuracaoController.resolucao.psY}"/>
+                                            	<label for="form_control_4">Posição da altura</label>
+                                             	<span class="help-block">Campo Obrigatório</span>
+                                     	</div>
+                                  
+									</div>		
+
+                                    <div class="form-actions noborder">
+                       					<h:commandLink action="#{configuracaoController.salvarResolucao()}" value="Salvar" class="btn blue" id="btnCadastroConfiguracao" />
+                                        <button type="button" class="btn default" onclick="window.location.href='lista.xhtml';" >Cancelar</button>
+                                    </div>
+                                
+                            </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+	</ui:define>
+</ui:composition>

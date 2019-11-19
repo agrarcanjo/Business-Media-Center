@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Playlist
+                    <small>listagem de Playlist</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Listagem Playlist</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <h:form id="formInterno">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Listagem</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+							 
+							<a href="cadastro.xhtml" class="btn green"> Inserir
+		                       	<i class="fa fa-plus"></i>
+		                    </a>
+							 <p:dataTable id="playlistDT" var="playlist" value="#{playlistController.playlist}" widgetVar="playlistTable" paginator="true" rows="10"
+					                 emptyMessage="Nenhum encontrado" filteredValue="#{playlistController.filteredMidias}"  rowsPerPageTemplate="5,10,15"
+					                 paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+					               	 >
+					 
+ 						        <f:facet name="header">
+						        <p:outputPanel >
+						            <h:outputText value="Procurar: " />
+						            <p:inputText id="globalFilter" onkeyup="PF('playlistTable').filter()" style="width:150px" placeholder="Inserir filtro"/>
+						        </p:outputPanel>						        
+						        </f:facet> 
+						        
+						        <p:column filterBy="#{playlist.nmPlaylist}" headerText="Playlist" filterMatchMode="contains" width="40%">
+            						<h:outputText value="#{playlist.nmPlaylist}" />
+        						</p:column>
+        						
+        						<p:column headerText="Criação" width="7%" style="width:16px;text-align:center" >
+        							<h:outputText value="#{playlist.dtCriacao}">
+        								<f:convertDateTime pattern="dd/MM/YYYY"/>
+        							</h:outputText>
+        						</p:column>
+        						
+        						<p:column headerText="Ações" width="10%" style="width:16px;text-align:center" >
+        							 <p:commandButton update="playlistDT" oncomplete="PF('playlistDialog').show()" icon="ui-icon-search" title="Ver" action="#{playlistController.findMidiasDaPlay(playlist)}">
+									 	<f:setPropertyActionListener value="#{playlist}" target="#{playlistController.selectPlaylist}" />
+									 </p:commandButton>
+									 
+									 <p:commandButton id="excluir" title="Excluir" oncomplete="PF('confirmarExclusaoDialogPlaylist').show()"  icon="ui-icon-trash" process="excluir" update="">
+										<f:setPropertyActionListener target="#{playlistController.instance}" value="#{playlist}" />
+					           		</p:commandButton>
+					           		
+					           		
+					           		<!--  
+        							 <a class="btn btn-icon-only default" data-toggle="modal" href="#static" > <i class="fa fa-edit"> </i> </a>								             
+									 <a class="btn btn-icon-only red" data-toggle="modal"  href="#confimacaoExcluir" > <i class="fa fa-times"></i> </a> -->		
+        						</p:column>        						        						
+        					</p:dataTable>
+        					
+        					<p:dialog id="confirmarExclusaoDialogPlaylist" widgetVar="confirmarExclusaoDialogPlaylist"
+								header="Remover" dynamic="true" modal="true" resizable="false" position="center" width="30%" height="20%">
+								<p:outputPanel id="excluirDetail" autoUpdate="true">
+									<div class="controls controls-row" align="center">
+										<h:outputText value="Deseja realmente excluir playlist #{playlistController.instance.nmPlaylist}? " />
+									</div>
+									<div class="controls controls-row btn-footer">
+										<p:commandButton value="Sim" id="btnSimDialogPlay" update="playlistDT" action="#{playlistController.deletar()}" 
+										oncomplete="PF('confirmarExclusaoDialogPlaylist').hide()" onclick="showStatus(); hideStatus();" />
+										<p:commandButton value="Não" onclick="PF('confirmarExclusaoDialogPlaylist').hide(); "
+											type="button" /> 
+									</div>
+								</p:outputPanel>
+							</p:dialog>
+        					
+        					
+        					<p:dialog header="Mídias da playlist" widgetVar="playlistDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true" width="35%" height="50%">
+								<p:outputPanel id="playlistDetail" autoUpdate="true">
+								<h3>Playlist : #{playlistController.selectPlaylist.nmPlaylist}</h3>								
+								
+									<p:dataTable id="midiasPlaylistDT" rendered="#{not empty playlistController.selectPlaylist}" 
+									value="#{playlistController.midiasPlaylist}" widgetVar="playMidiaTable" var="playMidia" scrollable="true" scrollHeight="150"> 
+										<p:column headerText="Mídias">
+											<h:outputText value="#{playMidia.midia.nmMidia}" />
+										</p:column>		
+										<p:column headerText="Ordem">
+											<h:outputText value="#{playMidia.nrOrdem}" />
+										</p:column>
+									</p:dataTable>
+								    								    
+								</p:outputPanel>
+								<!--
+								<p:commandButton oncomplete="PF('ordemListDialog').show()" icon="ui-icon-shuffle" title="Ordenar">
+									 	 <f:setPropertyActionListener value="#{playlistController.midiasPlaylist}" target="#{playlistController.midiasReOrder}" /> 
+								</p:commandButton>
+								-->
+							</p:dialog>
+							
+							
+							
+        					<p:dialog header="Ordenar lista" widgetVar="ordemListDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false"  width="200">
+						        <p:outputPanel id="ordemList" autoUpdate="true" >
+									<p:orderList value="#{playlistController.midiasPlaylist}" rendered="#{not empty playlistController.selectPlaylist and not empty playlistController.midiasPlaylist}" 
+									var="midias" itemValue="#{midias.midia.nmMidia}" converter="primeFacesPickListConverter" controlsLocation="left" responsive="true" converterMessage="nada" >							 
+								        <f:facet name="caption">Mídias</f:facet>								 
+								         <p:column>
+								            <h:outputText value="#{midias.midia.nmMidia}" />
+								        </p:column>
+								         <f:facet name="caption">Ordem</f:facet>								 
+								         <p:column>
+								            <h:outputText value="#{midias.nrOrdem}" />
+								        </p:column>
+								    </p:orderList>	
+						        </p:outputPanel>
+						    </p:dialog>
+        					
+        					
+						    
+        					<div class="modal fade" id="confimacaoExcluir" tabindex="-1" role="basic" aria-hidden="true">
+	                        	<div class="modal-dialog">
+	                            	<div class="modal-content">
+	                                	<div class="modal-header">
+	                                    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+	                                        <h4 class="modal-title">Excluir Mídia</h4>
+	                                    </div>
+		                                <div class="modal-body"> Deseja excluir permanentemente esta mídia? </div>
+		                                <div class="modal-footer">
+		                                	<button type="button" class="btn dark btn-outline" data-dismiss="modal">Fechar</button>
+		                                    <h:commandLink action="#{playlistController.delete()}" value="Excluir" class="btn green" id="btnExcluirMidia" onclick="showStatus();"/>
+		                                </div>
+	                                </div>
+	                             </div>
+	                        </div>
+                                        
+                            <div id="static" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+                            <div class="modal-dialog">
+                            	<div class="modal-content">
+                                	<div class="modal-header">
+                                    	<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                                        <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                    <p> Would you like to continue with some arbitrary task? </p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    	<button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>
+                                    	<button type="button" data-dismiss="modal" class="btn green">Continue Task</button>
+                                    </div>
+                               </div>
+                           </div>
+                           </div>
+ 
+                           </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+                </h:form>
+        <!-- END CONTENT -->
+	</ui:define>
+</ui:composition>

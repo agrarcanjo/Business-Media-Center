@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+    template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+        <!-- BEGIN CONTENT -->
+                <h1 class="page-title"> Programações
+                    <small>cadastro de Programações</small>
+                </h1>
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="index.xhtml">Início</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <span>Cadastro de Programações</span>
+                        </li>
+                    </ul>
+                    
+                </div>
+                <!-- END PAGE HEADER-->
+                <div class="row">
+                    <div class="col-md-12 ">
+                        <!-- BEGIN SAMPLE FORM PORTLET-->
+                        <div class="portlet light ">
+                            <div class="portlet-title">
+                                <div class="caption font-green">
+                                    <i class="icon-pin font-green"></i>
+                                    <span class="caption-subject bold uppercase"> Cadastro</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+
+                                    <div class="form-body">
+<!--                                     <h:panelGroup style="float: left; width: 50%;" layout="block"> -->
+                                      <h:panelGrid columns="2" cellpadding="10">	
+                                      
+	                                    <h:outputLabel value="Terminais: " for="selectedTerminais" />	                                    
+	                                    <p:selectCheckboxMenu id="selectedTerminais" value="#{programacaoController.terminaisSelect}" label="Selecione..." rendered="#{not programacaoController.seTerminalPreenchido}"
+									                              filter="true" filterMatchMode="startsWith" onHide="atualizaOutputDataList()" converter="converterListSelection" >									        
+									    	<f:selectItems value="#{programacaoController.terminais}" var="terminal" itemLabel="#{terminal.nmTerminal}"/>
+									    </p:selectCheckboxMenu>			
+									    						        
+									    <p:remoteCommand update="display" name="atualizaOutputDataList"/>									         								        
+								        <p:outputPanel id="display" style="width:250px;padding-left:5px;margin-top:10px" >
+									        <p:dataTable value="#{programacaoController.terminaisSelect}" var="t" emptyMessage="Nenhum terminal selecionado">
+									        	<p:column headerText="Nome do(s) Terminal(is)">
+									        		<p:outputLabel value="#{t.nmTerminal}"/>
+									        	</p:column>									        
+									        </p:dataTable>									        
+									    </p:outputPanel> 
+									    
+									    <p:outputLabel for="playlist" value="Playlist: " />
+								        <p:selectOneListbox id="playlist" value="#{programacaoController.selectedPlaylist}" converter="converterListPlaylist" var="t" filter="true" filterMatchMode="contains">
+								            <f:selectItems value="#{programacaoController.playlist}" var="play" itemLabel="#{play.nmPlaylist}" itemValue="#{play}" />								
+								            <p:column>
+								                <h:outputText value="#{t.nmPlaylist}" />
+								            </p:column>
+								        </p:selectOneListbox>
+									    		       	
+								       	<p:outputLabel for="dataInicio" value="Data início: " />
+        								<p:calendar id="dataInicio" value="#{programacaoController.instance.dtInicio}" pattern="dd/MM/yyyy - HH:mm:ss"
+        								title="Data de início da programação" showOn="button" placeholder="" mindate="#{programacaoController.diaHoje}"/>
+        																	       									       	
+								       	<p:outputLabel for="dataFim" value="Data Fim: "  />
+        								<p:calendar id="dataFim" value="#{programacaoController.instance.dtFim}"  pattern="dd/MM/yyyy - HH:mm:ss" placeholder="#{programacaoController.placeHolder}"
+        									title="Data de fim da programação" mindate="#{programacaoController.instance.dtInicio}" disabled="#{programacaoController.seSemDataFim}" showOn="button"/>
+        								
+        								<h:outputText value="Sem data fim: " />        								
+        								<p:selectBooleanButton id="selectDataFim" value="#{programacaoController.seSemDataFim}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close">
+            								<p:ajax event="change" update="dataFim"/>
+        								</p:selectBooleanButton>
+        								
+        								<p:outputLabel for="horaInicio" value="Hora Início: " />
+        								<p:calendar id="horaInicio" value="#{programacaoController.instance.hrInicio}" pattern="HH:mm" timeOnly="true" disabled="#{programacaoController.sePeriodoHora}"/>
+
+        								<p:outputLabel for="horaFim" value="Hora Fim: " />
+        								<p:calendar id="horaFim" value="#{programacaoController.instance.hrFim}" pattern="HH:mm" timeOnly="true"  disabled="#{programacaoController.sePeriodoHora}"/>
+								       	
+								       	<h:outputText value="Sem periodo de hora: " />
+        								<p:selectBooleanButton id="selectPeriodoHora" value="#{programacaoController.sePeriodoHora}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close">
+            								<p:ajax event="change" update="horaFim horaInicio"/>
+        								</p:selectBooleanButton>
+								       	
+								       	<h:outputText value="Dias da semana: " />
+								        <p:selectManyButton id="listDiasSemana" value="#{programacaoController.selectedDiaSemana}" disabled="#{programacaoController.seTodosDiasSemana}" >
+								            <f:selectItem itemLabel="Domingo" itemValue="1" />
+								            <f:selectItem itemLabel="Segunda" itemValue="2" />
+								            <f:selectItem itemLabel="Terça" itemValue="3" />
+								            <f:selectItem itemLabel="Quarta" itemValue="4" />
+								            <f:selectItem itemLabel="Quinta" itemValue="5" />
+								            <f:selectItem itemLabel="Sexta" itemValue="6" />
+								            <f:selectItem itemLabel="Sabado" itemValue="7" />
+								        </p:selectManyButton>
+								       	<h:outputText value="Todos os dias: " />
+        								<p:selectBooleanButton id="selectDiasSemana" value="#{programacaoController.seTodosDiasSemana}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close">
+            								<p:ajax event="change" update="listDiasSemana"/>
+        								</p:selectBooleanButton>
+								        
+								       	<h:outputText value="Intercalar playlist: " />
+        								<p:selectBooleanButton id="selectIntercalaPlaylist" value="#{programacaoController.seIntercalar}" onLabel="Sim" offLabel="Não" onIcon="ui-icon-check" offIcon="ui-icon-close" >            								
+        								</p:selectBooleanButton>
+								        
+								       </h:panelGrid>	  
+									</div>
+									
+											
+
+                                    <div class="form-actions noborder">
+                       					<h:commandLink action="#{programacaoController.salvar()}" value="Salvar" class="btn blue" id="btnCadastroProgramacao" onclick="showStatus();" />
+                                        <button type="button" class="btn default" onclick="window.location.href='lista.xhtml';" >Cancelar</button>
+                                    </div>
+                                
+                            </div>
+                        </div>
+                        <!-- END SAMPLE FORM PORTLET-->
+                    </div>
+                </div>
+        <!-- END CONTENT -->
+	</ui:define>
+</ui:composition>
